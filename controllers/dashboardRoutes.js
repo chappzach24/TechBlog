@@ -8,7 +8,9 @@ router.get('/', withGuard, async (req, res) => {
         userId: req.session.user_id,
       },
     });
+
     const blogPost = BlogPostData.map((blogPost) => blogPost.get({ plain: true }));
+
     res.render('dashboard', {
       dashboard: true,
       posts,
@@ -18,12 +20,14 @@ router.get('/', withGuard, async (req, res) => {
     res.status(500).json(err);
   }
 });
+
 router.get('/new', withGuard, (req, res) => {
   res.render('newPost', {
     dashboard: true,
     loggedIn: req.session.logged_in,
   });
 });
+
 router.get('/edit/:id', withGuard, async (req, res) => {
   try {
     const BlogPostData = await BlogPost.findByPk(req.params.id);
@@ -41,4 +45,5 @@ router.get('/edit/:id', withGuard, async (req, res) => {
     res.status(500).json(err);
   }
 });
+
 module.exports = router;
