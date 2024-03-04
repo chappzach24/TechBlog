@@ -17,4 +17,4 @@ BlogPost.hasMany(Comment, {
 })
 
 
-module.exports = { User, BlogPost };
+module.exports = { User, BlogPost, Comment };

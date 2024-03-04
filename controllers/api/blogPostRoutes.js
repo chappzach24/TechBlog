@@ -5,7 +5,7 @@ const { apiGuard } = require('../../utils/authGuard');
 router.post('/', apiGuard, async (req, res) => {
   const body = req.body;
   try {
-    const newBlogPost = await BlogPost.create({ ...body, userId: req.session.user_id });
+    const newBlogPost = await BlogPost.create({ ...body, user_id: req.session.user_id });
     res.json(newBlogPost);
   } catch (err) {
     res.status(500).json(err);

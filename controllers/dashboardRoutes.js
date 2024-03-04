@@ -1,19 +1,21 @@
-const router = require('express').Router();
-const { BlogPost } = require('../models');
-const { withGuard } = require('../utils/authGuard');
-router.get('/', withGuard, async (req, res) => {
+const router = require("express").Router();
+const { BlogPost } = require("../models");
+const { withGuard } = require("../utils/authGuard");
+router.get("/", withGuard, async (req, res) => {
   try {
     const BlogPostData = await BlogPost.findAll({
       where: {
-        userId: req.session.user_id,
+        user_id: req.session.user_id,
       },
     });
 
-    const blogPost = BlogPostData.map((blogPost) => blogPost.get({ plain: true }));
+    const blogPosts = BlogPostData.map((blogPost) =>
+      blogPost.get({ plain: true })
+    );
+    console.log(blogPosts);
 
-    res.render('dashboard', {
-      dashboard: true,
-      posts,
+    res.render("dashboard", {
+      blogPosts,
       loggedIn: req.session.logged_in,
     });
   } catch (err) {
@@ -21,19 +23,18 @@ router.get('/', withGuard, async (req, res) => {
   }
 });
 
-router.get('/new', withGuard, (req, res) => {
-  res.render('newPost', {
-    dashboard: true,
+router.get("/new", withGuard, (req, res) => {
+  res.render("newBlogPost", {
     loggedIn: req.session.logged_in,
   });
 });
 
-router.get('/edit/:id', withGuard, async (req, res) => {
+router.get("/edit/:id", withGuard, async (req, res) => {
   try {
     const BlogPostData = await BlogPost.findByPk(req.params.id);
     if (BlogPostData) {
       const blogPost = BlogPostData.get({ plain: true });
-      res.render('editBlogPost', {
+      res.render("editBlogPost", {
         dashboard: true,
         blogPost,
         loggedIn: req.session.logged_in,
