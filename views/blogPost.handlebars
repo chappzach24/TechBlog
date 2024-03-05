@@ -1,26 +1,24 @@
-<div class="BlogPost">
-  <article class="card">
-    <div class="card-header flex-row justify-space-between">
-      <h2>{{blogPost.title}}</h2>
-      <div>
-        {{!-- Posted by {{blogPost.user.username}} on {{formatDate blogPost.createdAt}} --}}
-      </div>
+<div class="BlogPost card">
+  <div class="card-header flex-row justify-space-between">
+    <h2>{{blogPost.title}}</h2>
+    <div>
+      {{!-- Posted by {{blogPost.user.username}} on {{formatDate blogPost.createdAt}} --}}
     </div>
-    <div class="card-body">
-      {{blogPost.body}}
-    </div>
-  </article>
+  </div>
+  <div class="card-body">
+    {{blogPost.body}}
+  </div>
   {{#if blogPost.comments}}
-  <section class="card">
+  <div class="card">
     <div class="card-header">
       <h3>Comments</h3>
     </div>
     <div class="card-body">
       {{#each blogPost.comments as |comment|}}
-      {{comments}}
+      {{comment}}
       {{/each}}
     </div>
-  </section>
+  </div>
   {{/if}}
   <form id="new-comment-form" class="card">
     <div class="card-header">
@@ -29,8 +27,8 @@
     <div class="card-body">
       <input type="hidden" name="blogPost-id" value="{{blogPost.id}}" />
       <label class="form-label" for="comment-body">Comment</label>
-      <textarea name="comment-body" class="form-input"></textarea>
-      <button type="submit" class="btn">Submit</button>
+      <textarea name="comment-body" class="form-control"></textarea>
+      <button type="submit" class="btn btn-primary mt-3">Submit</button>
     </div>
   </form>
 </div>
